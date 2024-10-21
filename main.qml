@@ -8,6 +8,46 @@ ApplicationWindow {
     visible: true
     title: qsTr("MRI UI")
 
+    RowLayout {
+        anchors.fill: parent
+
+        Rectangle {
+            id: leftPanel
+
+            width: 300
+            Layout.fillHeight: true
+            color: "lightgrey"
+
+            StackLayout {
+                id: leftPanelStackLayout
+                anchors.fill: parent
+                currentIndex: 0
+
+                ExamPage {
+                }
+
+                HistoryPage {
+                }
+
+            }
+
+        }
+
+        Rectangle {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color: "white"
+
+            Text {
+                text: "Image"
+                font.pixelSize: 20
+                anchors.centerIn: parent
+            }
+
+        }
+
+    }
+
     menuBar: MenuBar {
         Menu {
             title: qsTr("Settings")
@@ -59,35 +99,6 @@ ApplicationWindow {
 
         }
 
-    }
-
-    RowLayout{
-        anchors.fill: parent
-
-        Rectangle{
-            id: leftPanel
-
-            width: 300
-            Layout.fillHeight: true
-            color: "lightgrey"
-            Text{
-                text: "MRI UI"
-                font.pixelSize: 20
-                anchors.centerIn: parent
-            }
-        }
-
-        Rectangle{
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-
-            color: "white"
-            Text{
-                text: "Image"
-                font.pixelSize: 20
-                anchors.centerIn: parent
-            }
-        }
     }
 
 }
