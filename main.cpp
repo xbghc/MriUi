@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include <QIcon>
 #include <QLocale>
 #include <QTranslator>
 
@@ -33,6 +34,9 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(url);
+
+    QIcon icon(":/images/logo");
+    app.setWindowIcon(icon);
 
     return app.exec();
 }
