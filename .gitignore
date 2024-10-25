@@ -1,2 +1,3 @@
-﻿build
-resources/icons/src
+﻿build/
+原图片/
+.vscode/

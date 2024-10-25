@@ -1,27 +1,36 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-Image {
+Item {
+    id: root
+
+    property alias source: image.source
+
     signal clicked()
+
+    Image {
+        id: image
+        anchors.fill: parent
+    }
 
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
-
         onClicked: {
-            parent.clicked()
+            image.clicked();
         }
         onEntered: {
-            parent.opacity = 0.8
+            parent.opacity = 0.8;
         }
         onExited: {
-            parent.opacity = 1
+            parent.opacity = 1;
         }
         onPressed: {
-            parent.opacity = 0.5
+            parent.opacity = 0.5;
         }
         onReleased: {
-            parent.opacity = 1
+            parent.opacity = 1;
         }
     }
+
 }

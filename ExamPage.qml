@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Item {
+    id: root
+    
     Rectangle {
         id: examPageHeader
 
@@ -38,11 +40,14 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         Layout.fillHeight: true
-        Layout.fillWidth: true
+        height: parent.height - examPageHeader.height
         color: "lightgrey"
 
         RowLayout {
+            id: parentRowLayout
+
             width: parent.width
+            height: 50
 
             Text {
                 Layout.preferredWidth: 60
@@ -60,7 +65,9 @@ Item {
             IconButton {
                 id: newPatientButton
 
-                scale: 0.8
+                Layout.preferredWidth: parent.height * 0.8
+                Layout.preferredHeight: parent.height * 0.8
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 source: "qrc:/images/new_patient"
                 onClicked: {
                     console.log("New Patient Button Clicked");
@@ -70,7 +77,9 @@ Item {
             IconButton {
                 id: editPatientButton
 
-                scale: 0.8
+                Layout.preferredWidth: parent.height * 0.8
+                Layout.preferredHeight: parent.height * 0.8
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
                 source: "qrc:/images/edit_patient"
                 onClicked: {
                     console.log("New Patient Button Clicked");
@@ -89,10 +98,12 @@ Item {
 
         }
 
-        Text {
-            text: "Exam Content"
-            font.pixelSize: 20
-            anchors.centerIn: parent
+        SequenceTable {
+            id: sequenceTable
+
+            height: parent.height / 2
+            anchors.top: parentRowLayout.bottom
+            width: parent.width
         }
 
     }

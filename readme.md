@@ -1,7 +1,13 @@
-# Build
-> [!WARNING]
-> `Qt5.15.17`在ARM版Windows上无法使用qt online installer安装
+# MRI UI
 
+## 进度
+
+- [ ] SequenceTable
+    - [x] 拖拽事件
+    - [x] 启动、编辑按钮
+    - [x] 右键菜单查看参数、删除、复制
+    - [ ] 位置的稳定性
+    - [] 
 ## 在VS Code中构建
 
 1. 使用Qt Online Installer安装`Qt5.15.17`。
