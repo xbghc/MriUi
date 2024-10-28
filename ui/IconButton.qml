@@ -1,5 +1,4 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
 
 Item {
     id: root
@@ -17,7 +16,7 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         onClicked: {
-            image.clicked();
+            root.clicked();
         }
         onEntered: {
             parent.opacity = 0.8;

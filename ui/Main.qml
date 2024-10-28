@@ -1,6 +1,6 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 ApplicationWindow {
     id: root
@@ -16,7 +16,7 @@ ApplicationWindow {
         Rectangle {
             id: leftPanel
 
-            width: 300
+            Layout.preferredWidth: 300
             Layout.fillHeight: true
             color: "lightgrey"
 
@@ -25,15 +25,33 @@ ApplicationWindow {
                 anchors.fill: parent
                 currentIndex: 0
 
-                ExamPage {
+                ExamDashboard {
+                    id: examDashboard
                 }
 
                 HistoryPage {
+                    id: historyPage
+                }
+
+                Connections {
+                    target: examDashboard
+                    function onOpenHistory(){
+                        leftPanelStackLayout.currentIndex = 1;
+                    }
+                }
+
+                Connections{
+                    target: historyPage
+                    function onOpenExam(){
+                        leftPanelStackLayout.currentIndex = 0;
+                    }
                 }
 
             }
 
         }
+
+
 
         Rectangle {
             Layout.fillHeight: true

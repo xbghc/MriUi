@@ -1,8 +1,10 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 
 Item {
     id: root
+
+    signal openExam();
     
     Text {
         text: "History"
@@ -15,7 +17,7 @@ Item {
         anchors.top: parent.top
         anchors.right: parent.right
         onClicked: {
-            leftPanelStackLayout.currentIndex = 0
+            root.openExam()
         }
     }
 }

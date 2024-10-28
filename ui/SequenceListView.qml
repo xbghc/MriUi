@@ -1,6 +1,6 @@
-import QtGraphicalEffects 1.15
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+pragma ComponentBehavior: Bound
+import QtQuick
+import QtQuick.Controls
 
 ListView {
     id: root
@@ -10,7 +10,7 @@ ListView {
     property int startIndex: -1
 
     function updateItemY() {
-        for (var i = 0; i < listModel.count; i++) {
+        for (var i = 0; i < model.count; i++) {
             root.itemAtIndex(i).y = getChildY(i);
         }
     }
@@ -29,27 +29,6 @@ ListView {
             properties: "x,y"
             duration: 200
         }
-
-    }
-
-    model: ListModel {
-        id: listModel
-
-        ListElement {
-            name: "Scout"
-            time: "0:30"
-        }
-
-        ListElement {
-            name: "T1"
-            time: "1:00"
-        }
-
-        ListElement {
-            name: "T2"
-            time: "2:30"
-        }
-
     }
 
     delegate: Item {
@@ -98,13 +77,13 @@ ListView {
                         delegateItem.z = 100;
                     }
                     onPositionChanged: {
-                        if (!isDragging)
+                        if (!root.isDragging)
                             return ;
 
                         if (delegateItem.y < root.getChildY(0))
                             delegateItem.y = root.getChildY(0);
 
-                        if (delegateItem.y > root.getChildY(listModel.count-1))
+                        if (delegateItem.y > root.getChildY(root.model.count-1))
                             delegateItem.y = root.getChildY(listModel.count-1);
 
                         if (delegateItem.y > root.getChildY(delegateItem.index+0.5))
@@ -156,7 +135,7 @@ ListView {
                 anchors.right: settingButton.left
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/images/start"
+                source: "qrc:/icons/start"
                 onClicked: {
                 }
             }
@@ -169,7 +148,7 @@ ListView {
                 anchors.right: parent.right
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/images/setting"
+                source: "qrc:/icons/setting"
                 onClicked: {
                 }
             }
@@ -205,7 +184,7 @@ ListView {
                 MenuItem {
                     text: "删除"
                     onTriggered: {
-                        listModel.remove(delegateItem.index);
+                        root.model.remove(delegateItem.index);
                         console.log("删除项目:", delegateItem.name);
                     }
                 }
@@ -217,17 +196,6 @@ ListView {
 
             }
 
-        }
-
-        DropShadow {
-            anchors.fill: delegateRect
-            horizontalOffset: 0
-            verticalOffset: 3
-            radius: 8
-            samples: 17
-            color: "#80000000"
-            source: delegateRect
-            visible: dragArea.drag.active
         }
 
     }

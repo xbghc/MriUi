@@ -7,9 +7,6 @@
 
 int main(int argc, char *argv[])
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
     QGuiApplication app(argc, argv);
 
     QTranslator translator;
@@ -23,19 +20,18 @@ int main(int argc, char *argv[])
     }
 
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    // const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine,
-        &QQmlApplicationEngine::objectCreated,
+        &QQmlApplicationEngine::objectCreationFailed,
         &app,
-        [url](QObject *obj, const QUrl &objUrl) {
-            if (!obj && url == objUrl)
-                QCoreApplication::exit(-1);
-        },
+        []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.load(url);
+    // engine.load(url);
+    engine.loadFromModule("MriUi", "Main");
+    // engine.load("ui/Main.qml");
 
-    QIcon icon(":/images/logo");
+    QIcon icon(":/icons/logo");
     app.setWindowIcon(icon);
 
     return app.exec();

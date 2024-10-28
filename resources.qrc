@@ -1,12 +1,7 @@
+<!DOCTYPE RCC>
 <RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>HistoryPage.qml</file>
-        <file>ExamPage.qml</file>
-        <file>IconButton.qml</file>
-        <file>SequenceTable.qml</file>
-    </qresource>
-    <qresource prefix="/images">
+    <!-- icons -->
+    <qresource prefix="/icons">
         <file alias="logo">resources/icons/logo.ico</file>
         <file alias="new_patient">resources/icons/new_patient.png</file>
         <file alias="edit_patient">resources/icons/edit_patient.png</file>
