@@ -11,7 +11,7 @@ find_package(Qt6 6.5 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(MriUi
-    main.cpp
+    src/main.cpp
 )
 
 qt_add_qml_module(MriUi
@@ -22,8 +22,8 @@ qt_add_qml_module(MriUi
         ui/HistoryPage.qml
         ui/ExamDashboard.qml
         ui/SequenceList.qml
-        ui/SequenceListView.qml
-        ui/IconButton.qml
+        ui/views/SequenceListView.qml
+        ui/components/IconButton.qml
     RESOURCES 
         resources.qrc
 )
