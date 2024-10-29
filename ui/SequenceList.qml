@@ -2,7 +2,7 @@ import QtQuick
 
 import "./views"
 
-Item{
+Item {
     id: root
 
     ListModel {
@@ -24,11 +24,10 @@ Item{
         }
     }
 
-    SequenceListView{
+    SequenceListView {
         id: view
         anchors.fill: parent
 
         model: listModel
     }
-
 }

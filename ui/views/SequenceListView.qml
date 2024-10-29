@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Controls
 
 import "../components"
+
 ListView {
     id: root
 
@@ -17,7 +18,7 @@ ListView {
     }
 
     function getChildY(index) {
-        return index* offsetY;
+        return index * offsetY;
     }
 
     width: 300
@@ -79,15 +80,15 @@ ListView {
                     }
                     onPositionChanged: {
                         if (!root.isDragging)
-                            return ;
+                            return;
 
                         if (delegateItem.y < root.getChildY(0))
                             delegateItem.y = root.getChildY(0);
 
-                        if (delegateItem.y > root.getChildY(root.model.count-1))
-                            delegateItem.y = root.getChildY(listModel.count-1);
+                        if (delegateItem.y > root.getChildY(root.model.count - 1))
+                            delegateItem.y = root.getChildY(listModel.count - 1);
 
-                        if (delegateItem.y > root.getChildY(delegateItem.index+0.5))
+                        if (delegateItem.y > root.getChildY(delegateItem.index + 0.5))
                             listModel.move(delegateItem.index, delegateItem.index + 1, 1);
                         else if (delegateItem.y < root.getChildY(delegateItem.index - 0.5))
                             listModel.move(delegateItem.index, delegateItem.index - 1, 1);
@@ -103,9 +104,7 @@ ListView {
                         axis: Drag.YAxis
                         threshold: 0 // 立即开始拖动
                     }
-
                 }
-
             }
 
             Text {
@@ -137,8 +136,7 @@ ListView {
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/icons/start"
-                onClicked: {
-                }
+                onClicked: {}
             }
 
             IconButton {
@@ -150,8 +148,7 @@ ListView {
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/icons/setting"
-                onClicked: {
-                }
+                onClicked: {}
             }
 
             MouseArea {
@@ -159,10 +156,9 @@ ListView {
 
                 hoverEnabled: true
                 acceptedButtons: Qt.RightButton
-                onClicked: function(mouse) {
+                onClicked: function (mouse) {
                     if (mouse.button === Qt.RightButton)
                         contextMenu.popup();
-
                 }
 
                 anchors {
@@ -171,7 +167,6 @@ ListView {
                     top: parent.top
                     bottom: parent.bottom
                 }
-
             }
 
             Menu {
@@ -194,11 +189,7 @@ ListView {
                     text: "详情"
                     onTriggered: console.log("查看详情:", delegateItem.name)
                 }
-
             }
-
         }
-
     }
-
 }

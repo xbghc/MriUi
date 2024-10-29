@@ -3,12 +3,13 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import "./components"
+
 Item {
     id: root
 
-    signal openHistory();
+    signal openHistory
 
-    ColumnLayout{
+    ColumnLayout {
         id: rootLayout
 
         anchors.fill: parent
@@ -98,10 +99,7 @@ Item {
                         console.log("New Patient Button Clicked");
                     }
                 }
-
             }
-
-
         }
         SequenceList {
             id: sequenceList
@@ -109,9 +107,5 @@ Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
         }
-
-
     }
-    
-
 }

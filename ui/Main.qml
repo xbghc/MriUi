@@ -4,7 +4,7 @@ import QtQuick.Layouts
 
 ApplicationWindow {
     id: root
-    
+
     width: 1200
     height: 800
     visible: true
@@ -35,23 +35,19 @@ ApplicationWindow {
 
                 Connections {
                     target: examDashboard
-                    function onOpenHistory(){
+                    function onOpenHistory() {
                         leftPanelStackLayout.currentIndex = 1;
                     }
                 }
 
-                Connections{
+                Connections {
                     target: historyPage
-                    function onOpenExam(){
+                    function onOpenExam() {
                         leftPanelStackLayout.currentIndex = 0;
                     }
                 }
-
             }
-
         }
-
-
 
         Rectangle {
             Layout.fillHeight: true
@@ -63,9 +59,7 @@ ApplicationWindow {
                 font.pixelSize: 20
                 anchors.centerIn: parent
             }
-
         }
-
     }
 
     menuBar: MenuBar {
@@ -73,52 +67,48 @@ ApplicationWindow {
             title: qsTr("Settings")
 
             MenuItem {
+
                 // open image settings dialog
 
                 text: qsTr("image settings")
-                onTriggered: {
-                }
+                onTriggered: {}
             }
 
             MenuItem {
+
                 // open preferences dialog
 
                 text: qsTr("preferences")
-                onTriggered: {
-                }
+                onTriggered: {}
             }
-
         }
 
         Menu {
             title: qsTr("Tuning")
 
             MenuItem {
+
                 // open tuning dialog
 
                 text: qsTr("central frequency")
-                onTriggered: {
-                }
+                onTriggered: {}
             }
 
             MenuItem {
+
                 // open tuning dialog
 
                 text: qsTr("RF power")
-                onTriggered: {
-                }
+                onTriggered: {}
             }
 
             MenuItem {
+
                 // open tuning dialog
 
                 text: qsTr("shimming")
-                onTriggered: {
-                }
+                onTriggered: {}
             }
-
         }
-
     }
-
 }

@@ -4,8 +4,8 @@ import QtQuick.Controls
 Item {
     id: root
 
-    signal openExam();
-    
+    signal openExam
+
     Text {
         text: "History"
         font.pixelSize: 20
@@ -17,7 +17,7 @@ Item {
         anchors.top: parent.top
         anchors.right: parent.right
         onClicked: {
-            root.openExam()
+            root.openExam();
         }
     }
 }
