@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -9,6 +10,18 @@ ApplicationWindow {
     height: 800
     visible: true
     title: qsTr("MRI UI")
+    property var tuningWindow: null
+
+    function openTunningWindow(index){
+        // 这里不考虑正在加载的情况，因为加载时间应该很短
+        if(!tuningWindow){
+            tuningWindow = Qt.createComponent("TuningWindow.qml").createObject(root)
+            tuningWindow.currentIndex = index
+        }else{
+            tuningWindow.show()
+            tuningWindow.currentIndex = index
+        }
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -67,17 +80,11 @@ ApplicationWindow {
             title: qsTr("Settings")
 
             MenuItem {
-
-                // open image settings dialog
-
                 text: qsTr("image settings")
                 onTriggered: {}
             }
 
             MenuItem {
-
-                // open preferences dialog
-
                 text: qsTr("preferences")
                 onTriggered: {}
             }
@@ -86,29 +93,28 @@ ApplicationWindow {
         Menu {
             title: qsTr("Tuning")
 
+            
             MenuItem {
-
-                // open tuning dialog
-
                 text: qsTr("central frequency")
-                onTriggered: {}
+                onTriggered: {
+                    root.openTunningWindow(0)
+                }
             }
 
             MenuItem {
-
-                // open tuning dialog
-
                 text: qsTr("RF power")
-                onTriggered: {}
+                onTriggered: {
+                    root.openTunningWindow(1)
+                }
             }
 
             MenuItem {
-
-                // open tuning dialog
-
                 text: qsTr("shimming")
-                onTriggered: {}
+                onTriggered: {
+                    root.openTunningWindow(2)
+                }
             }
         }
     }
+
 }

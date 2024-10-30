@@ -22,6 +22,10 @@ qt_add_qml_module(MriUi
         ui/HistoryPage.qml
         ui/ExamDashboard.qml
         ui/SequenceList.qml
+        ui/TuningWindow.qml
+        ui/CentralFrequency.qml
+        ui/RfPower.qml
+        ui/Shiming.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
     RESOURCES 
