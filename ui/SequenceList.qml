@@ -1,5 +1,6 @@
 import QtQuick
 
+import MriUi
 import "./views"
 
 Item {
@@ -29,5 +30,22 @@ Item {
         anchors.fill: parent
 
         model: listModel
+    }
+
+    Connections {
+        target: view
+
+        function onStartItem(index){
+            Scanner.scan(1, "hello");
+        }
+    }
+
+    Connections{
+        target: Scanner
+
+        function onScanned(id, data){
+            console.log(id);
+            console.log(data)
+        }
     }
 }

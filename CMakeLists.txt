@@ -28,8 +28,17 @@ qt_add_qml_module(MriUi
         ui/Shiming.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
+    SOURCES
+        include/scanner.h
+        src/scanner.cpp
     RESOURCES 
         resources.qrc
+)
+
+target_include_directories(MriUi
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 set_target_properties(MriUi PROPERTIES

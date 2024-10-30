@@ -7,6 +7,9 @@ import "../components"
 ListView {
     id: root
 
+    signal startItem(int index)
+    signal setItem(int index)
+
     property bool isDragging: false
     property int offsetY: 40
     property int startIndex: -1
@@ -21,9 +24,6 @@ ListView {
         return index * offsetY;
     }
 
-    width: 300
-    height: 400
-    // 禁用 ListView 本身的交互性，当项目被拖动时
     interactive: !isDragging
 
     moveDisplaced: Transition {
@@ -136,7 +136,9 @@ ListView {
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/icons/start"
-                onClicked: {}
+                onClicked: {
+                    root.startItem(delegateItem.index);
+                }
             }
 
             IconButton {
@@ -148,7 +150,9 @@ ListView {
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/icons/setting"
-                onClicked: {}
+                onClicked: {
+                    root.setItem(delegateItem.index);
+                }
             }
 
             MouseArea {
