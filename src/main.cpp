@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-    engine.loadFromModule("MriUi", "Main");
+    engine.loadFromModule("ui", "Main");
 
     QIcon icon(":/icons/logo");
     app.setWindowIcon(icon);

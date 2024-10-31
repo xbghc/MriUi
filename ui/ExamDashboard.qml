@@ -1,9 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
-import MriUi
-import "./components"
+import "."
 
 Item {
     id: root

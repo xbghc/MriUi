@@ -12,10 +12,14 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(MriUi
     src/main.cpp
+    include/scanner.h
+    src/scanner.cpp
+    include/examconfig.h
+    src/examconfig.cpp
 )
 
 qt_add_qml_module(MriUi
-    URI MriUi
+    URI ui
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
@@ -29,13 +33,9 @@ qt_add_qml_module(MriUi
         ui/SequenceSetting.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
-    SOURCES
-        include/scanner.h
-        src/scanner.cpp
-        include/examconfig.h
-        src/examconfig.cpp
     RESOURCES 
         resources.qrc
+        RESOURCES ui/qmldir
 )
 
 target_include_directories(MriUi

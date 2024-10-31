@@ -1,0 +1,14 @@
+module ui
+
+Main 1.0 Main.qml
+CentralFrequency 1.0 CentralFrequency.qml
+SequenceList 1.0 SequenceList.qml
+SequenceListView 1.0 views/SequenceListView.qml
+ExamDashboard 1.0 ExamDashboard.qml
+RfPower 1.0 RfPower.qml
+Shiming 1.0 Shiming.qml
+TuningWindow 1.0 TuningWindow.qml
+IconButton 1.0 components/IconButton.qml
+HistoryPage 1.0 HistoryPage.qml
+classname Scanner
+classname ExamConfig

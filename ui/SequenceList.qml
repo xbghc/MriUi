@@ -1,7 +1,5 @@
 import QtQuick
 
-import MriUi
-import "./views"
 
 Item {
     id: root
