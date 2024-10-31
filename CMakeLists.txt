@@ -15,13 +15,8 @@ qt_add_executable(MriUi
 )
 
 qt_add_qml_module(MriUi
-    URI ui
+    URI Main
     VERSION 1.0
-    SOURCES
-        include/scanner.h
-        src/scanner.cpp
-        include/examconfig.h
-        src/examconfig.cpp
     QML_FILES 
         ui/Main.qml
         ui/HistoryPage.qml
@@ -36,7 +31,13 @@ qt_add_qml_module(MriUi
         ui/components/IconButton.qml
     RESOURCES 
         resources.qrc
+    SOURCES
+        include/scanner.h
+        src/scanner.cpp
+        include/examconfig.h
+        src/examconfig.cpp
 )
+
 
 target_include_directories(MriUi
     PRIVATE
