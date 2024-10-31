@@ -1,5 +1,4 @@
 import QtQuick
-import Main
 
 Item {
     id: root
