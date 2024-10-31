@@ -2,8 +2,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 
-import "../components"
-
 ListView {
     id: root
 
