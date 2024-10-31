@@ -6,6 +6,9 @@ import "./views"
 Item {
     id: root
 
+    property var settingWindow: null
+    property alias model: view.model
+
     ListModel {
         id: listModel
 
@@ -35,6 +38,17 @@ Item {
     Connections {
         target: view
 
+        function onSetItem(index){
+            if(!root.settingWindow){
+                root.settingWindow = Qt.createComponent("SequenceSetting.qml").createObject(root)
+            }
+            root.settingWindow.show()
+        }
+    }
+
+    Connections {
+        target: view
+
         function onStartItem(index){
             Scanner.scan(1, "hello");
         }
@@ -48,4 +62,5 @@ Item {
             console.log(data)
         }
     }
+
 }

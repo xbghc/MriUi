@@ -26,11 +26,14 @@ qt_add_qml_module(MriUi
         ui/CentralFrequency.qml
         ui/RfPower.qml
         ui/Shiming.qml
+        ui/SequenceSetting.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
     SOURCES
         include/scanner.h
         src/scanner.cpp
+        include/examconfig.h
+        src/examconfig.cpp
     RESOURCES 
         resources.qrc
 )

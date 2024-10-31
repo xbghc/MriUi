@@ -9,4 +9,7 @@
         <file alias="start">resources/icons/start.png</file>
         <file alias="setting">resources/icons/setting.png</file>
     </qresource>
+    <qresource prefix="/config">
+        <file alias="examSequences.json">resources/examSequences.json</file>
+    </qresource>
 </RCC>

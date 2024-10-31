@@ -2,12 +2,21 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import MriUi
 import "./components"
 
 Item {
     id: root
 
     signal openHistory
+
+    Component.onCompleted: {
+        var model = ExamConfig.loadFromJsonFile();
+        for(let i=0;i<model.length;i++){
+            model[i]["index"] = i;
+        }
+        sequenceList.model = model;
+    }
 
     ColumnLayout {
         id: rootLayout

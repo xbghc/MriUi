@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Scout",
+        "seq": "T1",
+        "time": "0:30",
+        "parameters": [
+            {
+                "name": "observe frequency",
+                "type": "int",
+                "value": 0
+            },
+            {
+                "name": "samples number",
+                "type": "int",
+                "value": 128
+            }
+        ],
+        "slices": []
+    },
+    {
+        "name": "T1",
+        "seq": "T1",
+        "time": "2:30",
+        "parameters": [
+            {
+                "name": "sequence"
+            }
+        ],
+        "slices": []
+    },
+    {
+        "name": "T2",
+        "seq": "T2",
+        "time": "5:30",
+        "parameters": [],
+        "slices": []
+    }
+]
