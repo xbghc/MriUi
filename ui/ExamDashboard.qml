@@ -2,6 +2,9 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import "components"
+import cn.cqu.mri
+
 Item {
     id: root
 
