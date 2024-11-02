@@ -15,20 +15,21 @@ qt_add_executable(MriUi
     src/main.cpp
 )
 
+
 qt_policy(SET QTP0004 NEW)
 qt_add_qml_module(MriUi
     URI cn.cqu.mri
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
-        ui/HistoryPage.qml
-        ui/ExamDashboard.qml
-        ui/SequenceList.qml
-        ui/TuningWindow.qml
-        ui/CentralFrequency.qml
-        ui/RfPower.qml
-        ui/Shiming.qml
-        ui/SequenceSetting.qml
+        ui/history/HistoryPage.qml
+        ui/exam/ExamDashboard.qml
+        ui/exam/SequenceList.qml
+        ui/tuning/TuningWindow.qml
+        ui/tuning/CentralFrequency.qml
+        ui/tuning/RfPower.qml
+        ui/tuning/Shiming.qml
+        ui/exam/SequenceSetting.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
     RESOURCES
