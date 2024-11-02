@@ -1,45 +1,50 @@
 import QtQuick
-import 'views'
+// import "views"
 import cn.cqu.mri
 
 Item {
     id: root
-
-    property var settingWindow: null
-    property alias model: view.model
-
+    
+    property var model: null
+    
+    QtObject {
+        id: internal
+        property var settingWindow: null
+    }
+    
     SequenceListView {
         id: view
         anchors.fill: parent
-    }
-
-    Connections {
-        target: view
-
-        function onSetItem(index){
-            if(!root.settingWindow){
-                root.settingWindow = Qt.createComponent("SequenceSetting.qml").createObject(root)
+        model: root.model
+        
+        onSetItem: function(index) {
+            internal.settingWindow = internal.settingWindow || root.createSettingWindow()
+            if (internal.settingWindow) {
+                internal.settingWindow.initProperties(root.model[index])
+                internal.settingWindow.show()
             }
-            root.settingWindow.initProperties(root.model[index]);
-            root.settingWindow.show()
+        }
+        
+        onStartItem: function(index) {
+            Scanner.scan(2, "hello")
         }
     }
-
+    
     Connections {
-        target: view
-
-        function onStartItem(index){
-            Scanner.scan(1, "hello");
-        }
-    }
-
-    Connections{
         target: Scanner
-
-        function onScanned(id, data){
-            console.log(id);
-            console.log(data)
+        
+        function onScanned(id, data) {
+            console.debug(`Scan completed - ID: ${id}, Data: ${data}`)
         }
     }
-
+    
+    function createSettingWindow() {
+        const component = Qt.createComponent("SequenceSetting.qml")
+        if (component.status === Component.Ready) {
+            return component.createObject(root)
+        } else {
+            console.error("Error creating SequenceSetting:", component.errorString())
+            return null
+        }
+    }
 }
