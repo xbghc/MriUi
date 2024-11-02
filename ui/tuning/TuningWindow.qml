@@ -10,8 +10,6 @@ Window{
 
     property alias currentIndex: stackLayout.currentIndex
 
-    visible: true
-
     RowLayout{
         id: rootLayout
         anchors.fill: parent
