@@ -20,6 +20,7 @@ Item {
             if(!root.settingWindow){
                 root.settingWindow = Qt.createComponent("SequenceSetting.qml").createObject(root)
             }
+            root.settingWindow.initProperties(root.model[index]);
             root.settingWindow.show()
         }
     }

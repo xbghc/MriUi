@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 6.5 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
+find_package(Qt6 6.8 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
