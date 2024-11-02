@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 
-import "../components"
+import cn.cqu.mri
 
 ListView {
     id: root

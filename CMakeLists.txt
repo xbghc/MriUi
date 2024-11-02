@@ -5,8 +5,9 @@ project(MriUi VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 6.5 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
+find_package(Qt6 6.8 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -14,8 +15,9 @@ qt_add_executable(MriUi
     src/main.cpp
 )
 
+qt_policy(SET QTP0004 NEW)
 qt_add_qml_module(MriUi
-    URI MriUi.Module
+    URI cn.cqu.mri
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
@@ -32,12 +34,11 @@ qt_add_qml_module(MriUi
     RESOURCES
         resources.qrc
     SOURCES
-        include/scanner.h
-        src/scanner.cpp
-        include/examconfig.h
-        src/examconfig.cpp
+    include/scanner.h
+    src/scanner.cpp
+    include/examconfig.h
+    src/examconfig.cpp
 )
-
 
 target_include_directories(MriUi
     PRIVATE
@@ -57,9 +58,9 @@ target_link_libraries(MriUi PRIVATE
     Qt::Quick
 )
 
-include(GNUInstallDirs)
-install(TARGETS MriUi
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+# include(GNUInstallDirs)
+# install(TARGETS MriUi
+#     BUNDLE DESTINATION .
+#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+# )
