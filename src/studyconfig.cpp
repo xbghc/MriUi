@@ -2,19 +2,19 @@
 #include <QDir>
 #include <QJsonDocument>
 
-#include "include/examconfig.h"
+#include "include/studyconfig.h"
 
-QJsonArray ExamConfig::loadFromJsonFile()
+QJsonArray StudyConfig::loadFromJsonFile()
 {
     QDir configDir("./config");
     if(!configDir.exists()){
         QDir().mkdir("./config");
     }
 
-    QString configPath = "./config/examSequences.json";
+    QString configPath = "./config/defaultStudies.json";
     QFile configFile(configPath);
     if(!configFile.exists()){
-        QFile defaultFile(":/config/examSequences.json");
+        QFile defaultFile(":/config/defaultStudies.json");
         defaultFile.copy(configPath);
     }
     QFile::setPermissions(configPath,
@@ -29,6 +29,6 @@ QJsonArray ExamConfig::loadFromJsonFile()
     return doc.array();
 }
 
-ExamConfig::ExamConfig(QObject *parent) : QObject(parent) {
+StudyConfig::StudyConfig(QObject *parent) : QObject(parent) {
 
 }

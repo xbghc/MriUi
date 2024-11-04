@@ -12,7 +12,7 @@ Item {
         property var settingWindow: null
     }
     
-    SequenceListView {
+    StudiesListView {
         id: view
         anchors.fill: parent
         model: root.model
@@ -39,11 +39,11 @@ Item {
     }
     
     function createSettingWindow() {
-        const component = Qt.createComponent("SequenceSetting.qml")
+        const component = Qt.createComponent("StudySetting.qml")
         if (component.status === Component.Ready) {
             return component.createObject(root)
         } else {
-            console.error("Error creating SequenceSetting:", component.errorString())
+            console.error("Error creating StudySetting:", component.errorString())
             return null
         }
     }

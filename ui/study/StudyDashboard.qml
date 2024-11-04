@@ -11,11 +11,11 @@ Item {
     signal openHistory
 
     Component.onCompleted: {
-        var model = ExamConfig.loadFromJsonFile();
+        var model = StudyConfig.loadFromJsonFile();
         for (let i = 0; i < model.length; i++) {
             model[i]["index"] = i;
         }
-        sequenceList.model = model;
+        studiesList.model = model;
     }
 
     ColumnLayout {
@@ -24,7 +24,7 @@ Item {
         anchors.fill: parent
 
         Rectangle {
-            id: examDashboardHeader
+            id: studyDashboardHeader
 
             Layout.fillWidth: true
             Layout.preferredHeight: 50
@@ -33,7 +33,7 @@ Item {
             Text {
                 Layout.fillWidth: true
                 anchors.centerIn: parent
-                text: "Exam"
+                text: "Study"
                 font.pixelSize: 20
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -55,8 +55,8 @@ Item {
             color: "lightgrey"
         }
 
-        SequenceList {
-            id: sequenceList
+        StudiesList {
+            id: studiesList
 
             Layout.fillWidth: true
             Layout.fillHeight: true

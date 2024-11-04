@@ -25,14 +25,14 @@ qt_add_qml_module(MriUi
     QML_FILES 
         ui/Main.qml
         ui/history/HistoryPage.qml
-        ui/exam/ExamDashboard.qml
-        ui/exam/SequenceList.qml
+        ui/study/StudyDashboard.qml
+        ui/study/StudiesList.qml
         ui/tuning/TuningWindow.qml
         ui/tuning/CentralFrequency.qml
         ui/tuning/RfPower.qml
         ui/tuning/Shiming.qml
-        ui/exam/SequenceSetting.qml
-        ui/views/SequenceListView.qml
+        ui/study/StudySetting.qml
+        ui/views/StudyListView.qml
         ui/components/IconButton.qml
         ui/patient/PatientSetting.qml
         ui/patient/PatientWindow.qml
@@ -41,8 +41,8 @@ qt_add_qml_module(MriUi
     SOURCES
     include/scanner.h
     src/scanner.cpp
-    include/examconfig.h
-    src/examconfig.cpp
+    include/studyconfig.h
+    src/studyconfig.cpp
     include/patient.h
     src/patient.cpp
 )

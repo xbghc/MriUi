@@ -6,7 +6,7 @@
 #include <QTranslator>
 #include <QQmlEngine>
 
-#include "include/examconfig.h"
+#include "include/studyconfig.h"
 #include "include/scanner.h"
 
 int main(int argc, char *argv[])
@@ -30,11 +30,6 @@ int main(int argc, char *argv[])
         &app,
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-
-    // QScopedPointer<Scanner> scanner(new Scanner);
-    // QScopedPointer<ExamConfig> examConfig(new ExamConfig);
-    // qmlRegisterSingletonInstance("cn.cqu.mri.model", 1, 0, "Scanner", scanner.get());
-    // qmlRegisterSingletonInstance("cn.cqu.mri.model", 1, 0, "ExamConfig", examConfig.get());
     
     engine.loadFromModule("cn.cqu.mri", "Main");
 

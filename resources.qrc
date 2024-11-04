@@ -10,6 +10,6 @@
         <file alias="setting">resources/icons/setting.png</file>
     </qresource>
     <qresource prefix="/config">
-        <file alias="examSequences.json">resources/examSequences.json</file>
+        <file alias="defaultStudies.json">resources/defaultStudies.json</file>
     </qresource>
 </RCC>

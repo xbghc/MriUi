@@ -43,8 +43,8 @@ ApplicationWindow {
                 anchors.fill: parent
                 currentIndex: 0
 
-                ExamDashboard {
-                    id: examDashboard
+                StudyDashboard {
+                    id: studyDashboard
                 }
 
                 HistoryPage {
@@ -52,7 +52,7 @@ ApplicationWindow {
                 }
 
                 Connections {
-                    target: examDashboard
+                    target: studyDashboard
                     function onOpenHistory() {
                         leftPanelStackLayout.currentIndex = 1;
                     }
@@ -60,7 +60,7 @@ ApplicationWindow {
 
                 Connections {
                     target: historyPage
-                    function onOpenExam() {
+                    function onOpenStudy() {
                         leftPanelStackLayout.currentIndex = 0;
                     }
                 }
