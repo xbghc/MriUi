@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+set(DCMTK_DIR "C:\\dev\\vcpkg\\installed\\x64-windows\\share\\dcmtk")
 
 project(MriUi VERSION 0.1 LANGUAGES CXX)
 
@@ -7,14 +8,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOMOC ON)
 
+
 find_package(Qt6 6.8 REQUIRED Core COMPONENTS Quick QuickControls2 Gui)
+find_package(DCMTK CONFIG REQUIRED)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(MriUi
     src/main.cpp
 )
-
 
 qt_policy(SET QTP0004 NEW)
 qt_add_qml_module(MriUi
@@ -32,6 +34,8 @@ qt_add_qml_module(MriUi
         ui/exam/SequenceSetting.qml
         ui/views/SequenceListView.qml
         ui/components/IconButton.qml
+        ui/patient/PatientSetting.qml
+        ui/patient/PatientWindow.qml
     RESOURCES
         resources.qrc
     SOURCES
@@ -39,6 +43,8 @@ qt_add_qml_module(MriUi
     src/scanner.cpp
     include/examconfig.h
     src/examconfig.cpp
+    include/patient.h
+    src/patient.cpp
 )
 
 target_include_directories(MriUi
@@ -57,6 +63,7 @@ set_target_properties(MriUi PROPERTIES
 target_link_libraries(MriUi PRIVATE
     Qt::Core
     Qt::Quick
+    DCMTK::DCMTK
 )
 
 # include(GNUInstallDirs)

@@ -7,6 +7,8 @@ import cn.cqu.mri
 Rectangle {
     id: root
 
+    property var patientWindow: null
+
     RowLayout {
         id: parentSettingRow
 
@@ -36,7 +38,11 @@ Rectangle {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/new_patient"
             onClicked: {
-                console.log("New Patient Button Clicked");
+                if(!root.patientWindow){
+                    root.patientWindow = Qt.createComponent("PatientWindow.qml").createObject(root);
+                }
+                root.patientWindow.show();
+                root.patientWindow.newPatient = true;
             }
         }
 
@@ -48,7 +54,7 @@ Rectangle {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/edit_patient"
             onClicked: {
-                console.log("New Patient Button Clicked");
+                
             }
         }
 

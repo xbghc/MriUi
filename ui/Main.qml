@@ -18,6 +18,10 @@ ApplicationWindow {
         tuningWindow.currentIndex = index;
     }
 
+    Component.onCompleted:{
+        
+    }
+
     TuningWindow {
         id: tuningWindow
 
