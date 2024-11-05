@@ -10,14 +10,6 @@ Item {
 
     signal openHistory
 
-    Component.onCompleted: {
-        var model = StudyConfig.loadFromJsonFile();
-        for (let i = 0; i < model.length; i++) {
-            model[i]["index"] = i;
-        }
-        studiesList.model = model;
-    }
-
     ColumnLayout {
         id: rootLayout
 

@@ -15,8 +15,8 @@ Item {
     signal pressed(MouseEvent mouse)
     signal released(MouseEvent mouse)
     // 按钮
-    signal startButtonClicked()
-    signal setButtonClicked()
+    signal startButtonClicked
+    signal setButtonClicked
 
     Rectangle {
         anchors.fill: parent
@@ -40,7 +40,7 @@ Item {
 
                 anchors.fill: parent
                 cursorShape: Qt.SizeVerCursor
-                onPressed: function(mouse){
+                onPressed: function (mouse) {
                     root.pressed(mouse);
                 }
                 onPositionChanged: function (mouse) {
@@ -104,6 +104,5 @@ Item {
                 root.setButtonClicked();
             }
         }
-
     }
 }
