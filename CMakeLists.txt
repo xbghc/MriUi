@@ -32,7 +32,8 @@ qt_add_qml_module(MriUi
         ui/tuning/RfPower.qml
         ui/tuning/Shiming.qml
         ui/study/StudySetting.qml
-        ui/views/StudyListView.qml
+        ui/study/StudiesListView.qml
+        ui/study/StudyItem.qml
         ui/components/IconButton.qml
         ui/patient/PatientSetting.qml
         ui/patient/PatientWindow.qml
@@ -41,10 +42,11 @@ qt_add_qml_module(MriUi
     SOURCES
     include/scanner.h
     src/scanner.cpp
-    include/studyconfig.h
+    include/mriuiconfig.h
+    src/mriuiconfig.cpp
     src/studyconfig.cpp
-    include/patient.h
-    src/patient.cpp
+    # include/patient.h
+    # src/patient.cpp
 )
 
 target_include_directories(MriUi

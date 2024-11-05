@@ -6,8 +6,6 @@
 #include <QTranslator>
 #include <QQmlEngine>
 
-#include "include/studyconfig.h"
-#include "include/scanner.h"
 
 int main(int argc, char *argv[])
 {

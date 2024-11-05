@@ -8,7 +8,7 @@ Item {
     property var model: null
 
     Component.onCompleted: {
-        var model = StudyConfig.loadFromJsonFile();
+        var model = MriUiConfig.loadStudyConfig();
         for (let i = 0; i < model.length; i++) {
             model[i]["index"] = i;
             view.model.append(model[i]);
