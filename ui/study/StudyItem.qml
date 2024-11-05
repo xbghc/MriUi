@@ -1,27 +1,26 @@
 import QtQuick
-import QtQuick.Controls
 
 import cn.cqu.mri
 
 Item {
     id: root
 
+    // 用于显示的参数
     required property int index
     required property string name
     required property string time
-    required property bool isDragging
-    required property var getChildY
-    signal positionChanged(MouseEvent mouse);
 
-    // 添加拖拽属性
-    Drag.active: dragArea.drag.active
+    // mouseArea相关
+    signal positionChanged(MouseEvent mouse)
+    signal pressed(MouseEvent mouse)
+    signal released(MouseEvent mouse)
+    // 按钮
+    signal startButtonClicked()
+    signal setButtonClicked()
 
     Rectangle {
-        id: delegateRect
-
         anchors.fill: parent
         anchors.margins: dragArea.drag.active ? 5 : 0
-        color: dragArea.drag.active ? "#f0f0f0" : (mouseArea.containsMouse ? "#e0e0e0" : "white")
         border.color: dragArea.drag.active ? "#2196F3" : "transparent"
         border.width: 1
 
@@ -39,21 +38,16 @@ Item {
             MouseArea {
                 id: dragArea
 
-                property int startIndex: -1
-
                 anchors.fill: parent
                 cursorShape: Qt.SizeVerCursor
-                onPressed: {
-                    startIndex = root.index;
-                    root.isDragging = true;
-                    root.z = 100;
+                onPressed: function(mouse){
+                    root.pressed(mouse);
                 }
-                onPositionChanged: function(mouse){
-                    root.positionChanged(mouse)
+                onPositionChanged: function (mouse) {
+                    root.positionChanged(mouse);
                 }
-                onReleased: {
-                    root.isDragging = false;
-                    root.z = 1;
+                onReleased: function (mouse) {
+                    root.released(mouse);
                 }
                 drag {
                     target: root
@@ -93,7 +87,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             source: "qrc:/icons/start"
             onClicked: {
-                root.startItem(delegateItem.index);
+                root.startButtonClicked();
             }
         }
 
@@ -107,48 +101,9 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             source: "qrc:/icons/setting"
             onClicked: {
-                root.setItem(delegateItem.index);
+                root.setButtonClicked();
             }
         }
 
-        MouseArea {
-            id: mouseArea
-
-            hoverEnabled: true
-            acceptedButtons: Qt.RightButton
-            onClicked: function (mouse) {
-                if (mouse.button === Qt.RightButton)
-                    contextMenu.popup();
-            }
-
-            anchors {
-                left: indexText.right
-                right: parent.right
-                top: parent.top
-                bottom: parent.bottom
-            }
-        }
-
-        Menu {
-            id: contextMenu
-
-            MenuItem {
-                text: "编辑"
-                onTriggered: console.log("编辑项目:", delegateItem.name)
-            }
-
-            MenuItem {
-                text: "删除"
-                onTriggered: {
-                    root.model.remove(delegateItem.index);
-                    console.log("删除项目:", delegateItem.name);
-                }
-            }
-
-            MenuItem {
-                text: "详情"
-                onTriggered: console.log("查看详情:", delegateItem.name)
-            }
-        }
     }
 }

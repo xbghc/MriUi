@@ -15,11 +15,11 @@ ListView {
 
     function updateItemY() {
         for (var i = 0; i < model.count; i++) {
-            root.itemAtIndex(i).y = getChildY(i);
+            root.itemAtIndex(i).y = getItemY(i);
         }
     }
 
-    function getChildY(index) {
+    function getItemY(index) {
         return index * offsetY;
     }
 
@@ -38,32 +38,28 @@ ListView {
         width: root.width
         height: root.offsetY
         anchors.margins: 5
-        isDragging: root.isDragging
-        getChildY: root.getChildY
 
         Connections {
             target: item
 
             function onPositionChanged(event) {
-                // if (!root.isDragging)
-                //     return;
-                console.log(event.y);
-                console.log(item.y);
-
-                if (item.y < root.getChildY(0))
-                    item.y = root.getChildY(0);
-
-                if (item.y > root.getChildY(root.model.count - 1))
-                    item.y = root.getChildY(listModel.count - 1);
-
                 var i = item.index;
-                if (item.y > root.getChildY(item.index + 0.5))
+                if (item.y > root.getItemY(item.index + 0.5))
                     [root.model[i], root.model[i + 1]] = [root.model[i + 1], root.model[i]];
-                else
-                // root.model.move(item.index, item.index + 1, 1);
-                if (item.y < root.getChildY(item.index - 0.5))
+                else if (item.y < root.getItemY(item.index - 0.5))
                     [root.model[i], root.model[i - 1]] = [root.model[i - 1], root.model[i]];
-            // root.model.move(item.index, item.index - 1, 1);
+            }
+
+            function onReleased(event){
+                item.y = root.getItemY(item.index);
+            }
+
+            function onStartButtonClicked(){
+                root.startItem(item.index)
+            }
+
+            function onSetButtonClicked(){
+                root.setItem(item.index)
             }
         }
     }
