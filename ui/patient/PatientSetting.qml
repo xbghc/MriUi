@@ -7,7 +7,50 @@ import cn.cqu.mri
 Rectangle {
     id: root
 
-    property var patientWindow: null
+    property var patients: null
+
+    Component.onCompleted: {
+        // showPatientWindow();
+        patients = PatientManager.loadPatients();
+    }
+
+    function showPatientWindow(patientInfo) {
+        patientWindow.show();
+        if (patientInfo == null) {
+            patientWindow.createNew = true;
+        } else {
+            patientWindow.createNew = false;
+            patientWindow.setPatientInfo(patientInfo);
+        }
+    }
+
+    function deleteCurrentPatient() {
+        patients.splice(patientComboBox.currentIndex, 1);
+        patients = [...patients];
+        PatientManager.savePatients(patients);
+    }
+
+    PatientWindow {
+        id: patientWindow
+
+        visible: false
+    }
+
+    Connections{
+        target: patientWindow
+        
+        function onAccept(patientInfo) {
+            if (patientWindow.createNew) {
+                root.patients = [...root.patients, patientInfo];
+            } else {
+                var i = patientComboBox.currentIndex;
+                root.patients[i] = patientInfo;
+                root.patients = [...root.patients]; // 刷新显示
+                patientComboBox.currentIndex = i;
+            }
+            PatientManager.savePatients(root.patients);
+        }
+    }
 
     RowLayout {
         id: parentSettingRow
@@ -25,46 +68,46 @@ Rectangle {
         ComboBox {
             id: patientComboBox
 
+            displayText: currentText
+            model: root.patients
+            textRole: "name"
+
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: ["Patient 1", "Patient 2", "Patient 3"]
         }
 
         IconButton {
             id: newPatientButton
 
-            Layout.preferredWidth: parent.height * 0.8
-            Layout.preferredHeight: parent.height * 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/new_patient"
             onClicked: {
-                if(!root.patientWindow){
-                    root.patientWindow = Qt.createComponent("PatientWindow.qml").createObject(root);
-                }
-                root.patientWindow.show();
-                root.patientWindow.newPatient = true;
+                root.showPatientWindow();
             }
         }
 
         IconButton {
             id: editPatientButton
 
-            Layout.preferredWidth: parent.height * 0.8
-            Layout.preferredHeight: parent.height * 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/edit_patient"
             onClicked: {
-                
+                root.showPatientWindow(root.patients[patientComboBox.currentIndex]);
             }
         }
 
         IconButton {
             id: deletePatientButton
 
-            scale: 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             source: "qrc:/icons/delete_patient"
             onClicked: {
-                console.log("New Patient Button Clicked");
+                root.deleteCurrentPatient();
             }
         }
     }

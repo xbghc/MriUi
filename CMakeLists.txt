@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.16)
-set(DCMTK_DIR "C:\\dev\\vcpkg\\installed\\x64-windows\\share\\dcmtk")
 
 project(MriUi VERSION 0.1 LANGUAGES CXX)
 
@@ -22,6 +21,8 @@ qt_add_qml_module(MriUi
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
+        ui/components/MsgBox.qml
+        ui/components/IconButton.qml
         ui/history/HistoryPage.qml
         ui/study/StudyDashboard.qml
         ui/study/StudiesList.qml
@@ -32,19 +33,18 @@ qt_add_qml_module(MriUi
         ui/study/StudySetting.qml
         ui/study/StudiesListView.qml
         ui/study/StudyItem.qml
-        ui/components/IconButton.qml
         ui/patient/PatientSetting.qml
         ui/patient/PatientWindow.qml
     RESOURCES
         resources.qrc
     SOURCES
-    include/scanner.h
-    src/scanner.cpp
-    include/mriuiconfig.h
-    src/mriuiconfig.cpp
-    src/studyconfig.cpp
-    # include/patient.h
-    # src/patient.cpp
+        include/scanner.h
+        src/scanner.cpp
+        include/mriuiconfig.h
+        src/mriuiconfig.cpp
+        src/studyconfig.cpp
+        include/patientmanager.h
+        src/patientmanager.cpp
 )
 
 target_include_directories(MriUi
@@ -63,12 +63,4 @@ set_target_properties(MriUi PROPERTIES
 target_link_libraries(MriUi PRIVATE
     Qt::Core
     Qt::Quick
-    DCMTK::DCMTK
 )
-
-# include(GNUInstallDirs)
-# install(TARGETS MriUi
-#     BUNDLE DESTINATION .
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
