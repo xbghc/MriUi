@@ -4,7 +4,7 @@ import QtQuick.Controls
 Item {
     id: root
 
-    signal openExam
+    signal openStudy
 
     Text {
         text: "History"
@@ -13,11 +13,11 @@ Item {
     }
 
     Button {
-        text: "Show Exam Page"
+        text: "Show Study Page"
         anchors.top: parent.top
         anchors.right: parent.right
         onClicked: {
-            root.openExam();
+            root.openStudy();
         }
     }
 }

@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
+set(DCMTK_DIR "C:\\dev\\vcpkg\\installed\\x64-windows\\share\\dcmtk")
 
 project(MriUi VERSION 0.1 LANGUAGES CXX)
 
@@ -21,23 +22,29 @@ qt_add_qml_module(MriUi
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
-        ui/HistoryPage.qml
-        ui/ExamDashboard.qml
-        ui/SequenceList.qml
-        ui/TuningWindow.qml
-        ui/CentralFrequency.qml
-        ui/RfPower.qml
-        ui/Shiming.qml
-        ui/SequenceSetting.qml
-        ui/views/SequenceListView.qml
+        ui/history/HistoryPage.qml
+        ui/study/StudyDashboard.qml
+        ui/study/StudiesList.qml
+        ui/tuning/TuningWindow.qml
+        ui/tuning/CentralFrequency.qml
+        ui/tuning/RfPower.qml
+        ui/tuning/Shiming.qml
+        ui/study/StudySetting.qml
+        ui/study/StudiesListView.qml
+        ui/study/StudyItem.qml
         ui/components/IconButton.qml
+        ui/patient/PatientSetting.qml
+        ui/patient/PatientWindow.qml
     RESOURCES
         resources.qrc
     SOURCES
     include/scanner.h
     src/scanner.cpp
-    include/examconfig.h
-    src/examconfig.cpp
+    include/mriuiconfig.h
+    src/mriuiconfig.cpp
+    src/studyconfig.cpp
+    # include/patient.h
+    # src/patient.cpp
 )
 
 target_include_directories(MriUi
@@ -56,6 +63,7 @@ set_target_properties(MriUi PROPERTIES
 target_link_libraries(MriUi PRIVATE
     Qt::Core
     Qt::Quick
+    DCMTK::DCMTK
 )
 
 # include(GNUInstallDirs)

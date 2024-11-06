@@ -3,6 +3,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import cn.cqu.mri
+
 ApplicationWindow {
     id: root
 
@@ -10,17 +12,20 @@ ApplicationWindow {
     height: 800
     visible: true
     title: qsTr("MRI UI")
-    property var tuningWindow: null
 
-    function openTunningWindow(index){
-        // 这里不考虑正在加载的情况，因为加载时间应该很短
-        if(!tuningWindow){
-            tuningWindow = Qt.createComponent("TuningWindow.qml").createObject(root)
-            tuningWindow.currentIndex = index
-        }else{
-            tuningWindow.show()
-            tuningWindow.currentIndex = index
-        }
+    function openTunningWindow(index) {
+        tuningWindow.show();
+        tuningWindow.currentIndex = index;
+    }
+
+    Component.onCompleted:{
+        
+    }
+
+    TuningWindow {
+        id: tuningWindow
+
+        visible: false
     }
 
     RowLayout {
@@ -38,8 +43,8 @@ ApplicationWindow {
                 anchors.fill: parent
                 currentIndex: 0
 
-                ExamDashboard {
-                    id: examDashboard
+                StudyDashboard {
+                    id: studyDashboard
                 }
 
                 HistoryPage {
@@ -47,7 +52,7 @@ ApplicationWindow {
                 }
 
                 Connections {
-                    target: examDashboard
+                    target: studyDashboard
                     function onOpenHistory() {
                         leftPanelStackLayout.currentIndex = 1;
                     }
@@ -55,7 +60,7 @@ ApplicationWindow {
 
                 Connections {
                     target: historyPage
-                    function onOpenExam() {
+                    function onOpenStudy() {
                         leftPanelStackLayout.currentIndex = 0;
                     }
                 }
@@ -93,28 +98,26 @@ ApplicationWindow {
         Menu {
             title: qsTr("Tuning")
 
-            
             MenuItem {
                 text: qsTr("central frequency")
                 onTriggered: {
-                    root.openTunningWindow(0)
+                    root.openTunningWindow(0);
                 }
             }
 
             MenuItem {
                 text: qsTr("RF power")
                 onTriggered: {
-                    root.openTunningWindow(1)
+                    root.openTunningWindow(1);
                 }
             }
 
             MenuItem {
                 text: qsTr("shimming")
                 onTriggered: {
-                    root.openTunningWindow(2)
+                    root.openTunningWindow(2);
                 }
             }
         }
     }
-
 }
