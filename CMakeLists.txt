@@ -45,8 +45,8 @@ qt_add_qml_module(MriUi
     include/mriuiconfig.h
     src/mriuiconfig.cpp
     src/studyconfig.cpp
-    # include/patient.h
-    # src/patient.cpp
+    include/patientmanager.h
+    src/patientmanager.cpp
 )
 
 target_include_directories(MriUi

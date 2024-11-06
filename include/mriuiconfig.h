@@ -12,10 +12,10 @@ class MriUiConfig : public QObject
 public:
     MriUiConfig(QObject *parent = nullptr);
     // basic io
-    Q_INVOKABLE QJsonObject loadJsonObject(QString filepath);
-    Q_INVOKABLE QJsonArray loadJsonArray(QString filepath);
-    Q_INVOKABLE void saveJsonObject(QString filepath, QJsonObject content);
-    Q_INVOKABLE void saveJsonArray(QString filepath, QJsonArray content);
+    Q_INVOKABLE static QJsonObject loadJsonObject(QString filepath);
+    Q_INVOKABLE static QJsonArray loadJsonArray(QString filepath);
+    Q_INVOKABLE static void saveJsonObject(QString filepath, QJsonObject content);
+    Q_INVOKABLE static void saveJsonArray(QString filepath, QJsonArray content);
 
     // study
     Q_INVOKABLE QJsonArray loadStudyConfig();

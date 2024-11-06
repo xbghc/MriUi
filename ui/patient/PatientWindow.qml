@@ -1,39 +1,100 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 
 Window {
     id: root
 
-    property bool newPatient: false
+    signal accept(var patientInfo)
+
+    property bool createNew: false
+    property alias model: repeater.model
+
+    function setPatientInfo(_patientInfo) {
+        repeater.model = [];
+        for (var key in _patientInfo) {
+            repeater.model.push({
+                "label": key,
+                "value": _patientInfo[key]
+            });
+        }
+    }
+
+    function generatePatientInfo() {
+        var info = {};
+        for (var i = 0; i < repeater.model.length; i++) {
+            var label = repeater.itemAt(i).label;
+            var value = repeater.itemAt(i).value;
+            info[label] = value;
+        }
+        return info;
+    }
+
+    function clear() {
+        setPatientInfo({
+            "name": "Alan",
+            "birthday": "2000-01-01",
+            "gender": "male"
+        });
+    }
+
+    Component.onCompleted: {
+        clear();
+    }
 
     height: 600
     width: 300
-    color: "lightgray"
+    visible: true
 
     Rectangle {
         anchors.fill: parent
+        color: "lightgray"
 
         ColumnLayout {
             id: layout
 
-            anchors.fill: parent
+            Repeater {
+                id: repeater
 
-            EditRect {
-                label: "Name"
+                model: []
 
-                Layout.preferredHeight: 30
-                Layout.fillWidth: true
+                EditRect {
+                    Layout.preferredHeight: 30
+                }
             }
+        }
 
-            EditRect {
-                label: "id"
+        Button {
+            id: acceptButton
 
-                Layout.preferredHeight: 30
-                Layout.fillWidth: true
+            text: qsTr("OK")
+
+            anchors.bottom: parent.bottom
+            anchors.right: rejectButton.left
+            anchors.rightMargin: 5
+            height: 30
+            width: 50
+
+            onClicked: {
+                root.accept(root.generatePatientInfo());
+                root.close();
+                root.clear();
             }
+        }
+        Button {
+            id: rejectButton
 
-            Rectangle{
-                Layout.fillHeight: true
+            text: qsTr("Cancel")
+
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            height: 30
+            width: 50
+
+            onClicked: {
+                root.close();
+                root.clear();
             }
         }
     }
@@ -41,42 +102,44 @@ Window {
     component EditRect: Rectangle {
         id: editRect
 
+        required property var modelData
         property alias label: _label.text
-        property alias text: _textEdit.text
-        property int fontSize: 20
-        color: "white"
+        property alias value: _textEdit.text
+        property int fontSize: 15
 
-        Row {
+        color: "lightgray"
+
+        RowLayout {
             anchors.fill: parent
 
-            Rectangle {
-                height: parent.height
-                width: 100
-                anchors.horizontalCenter: parent.horizontalCenter
+            Text {
+                id: _label
 
-                Text {
-                    id: _label
+                text: editRect.modelData.label
 
-                    anchors.fill: parent
-
-                    font.pixelSize: editRect.fontSize
-                }
+                Layout.fillHeight: true
+                Layout.preferredWidth: 100
+                Layout.leftMargin: 20
+                font.pixelSize: editRect.fontSize
             }
 
             Rectangle {
-                height: parent.height
-                width: 100
-                anchors.horizontalCenter: parent.horizontalCenter
+                id: textEditContainer
+
+                Layout.fillHeight: true
+                Layout.preferredWidth: 100
                 border.width: 1
 
                 TextEdit {
                     id: _textEdit
-                    
-                    anchors.fill: parent
 
+                    text: editRect.modelData.value
+
+                    anchors.fill: parent
                     font.pixelSize: editRect.fontSize
                 }
             }
-        }
+        } // layout
+
     }
 }

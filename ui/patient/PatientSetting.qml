@@ -7,7 +7,33 @@ import cn.cqu.mri
 Rectangle {
     id: root
 
-    property var patientWindow: null
+    property var patients: null
+
+    Component.onCompleted: {
+        // showPatientWindow();
+        patients = PatientManager.loadPatients();
+    }
+
+    function showPatientWindow(patientInfo) {
+        patientWindow.show();
+        if (patientInfo == null) {
+            patientWindow.createNew = true;
+        } else {
+            patientWindow.createNew = false;
+            patientWindow.setPatientInfo(patientInfo);
+        }
+    }
+
+    PatientWindow {
+        id: patientWindow
+
+        visible: false
+
+        onAccept: function (patientInfo) {
+            root.patients = [...root.patients, patientInfo];
+            PatientManager.savePatients(root.patients);
+        }
+    }
 
     RowLayout {
         id: parentSettingRow
@@ -25,9 +51,12 @@ Rectangle {
         ComboBox {
             id: patientComboBox
 
+            displayText: currentText
+            model: root.patients
+            textRole: "name"
+
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: ["Patient 1", "Patient 2", "Patient 3"]
         }
 
         IconButton {
@@ -38,11 +67,7 @@ Rectangle {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/new_patient"
             onClicked: {
-                if(!root.patientWindow){
-                    root.patientWindow = Qt.createComponent("PatientWindow.qml").createObject(root);
-                }
-                root.patientWindow.show();
-                root.patientWindow.newPatient = true;
+                root.showPatientWindow();
             }
         }
 
@@ -54,7 +79,7 @@ Rectangle {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/edit_patient"
             onClicked: {
-                
+                root.showPatientWindow();
             }
         }
 
