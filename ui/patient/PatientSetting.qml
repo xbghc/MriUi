@@ -24,6 +24,12 @@ Rectangle {
         }
     }
 
+    function deleteCurrentPatient() {
+        patients.splice(patientComboBox.currentIndex, 1);
+        patients = [...patients];
+        PatientManager.savePatients(patients);
+    }
+
     PatientWindow {
         id: patientWindow
 
@@ -32,7 +38,7 @@ Rectangle {
         onAccept: function (patientInfo) {
             if (patientWindow.createNew) {
                 root.patients = [...root.patients, patientInfo];
-            }else{
+            } else {
                 var i = patientComboBox.currentIndex;
                 root.patients[i] = patientInfo;
                 root.patients = [...root.patients]; // 刷新显示
@@ -69,8 +75,8 @@ Rectangle {
         IconButton {
             id: newPatientButton
 
-            Layout.preferredWidth: parent.height * 0.8
-            Layout.preferredHeight: parent.height * 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/new_patient"
             onClicked: {
@@ -81,8 +87,8 @@ Rectangle {
         IconButton {
             id: editPatientButton
 
-            Layout.preferredWidth: parent.height * 0.8
-            Layout.preferredHeight: parent.height * 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/edit_patient"
             onClicked: {
@@ -93,10 +99,11 @@ Rectangle {
         IconButton {
             id: deletePatientButton
 
-            scale: 0.8
+            Layout.preferredWidth: parent.height * 0.6
+            Layout.preferredHeight: parent.height * 0.6
             source: "qrc:/icons/delete_patient"
             onClicked: {
-                console.log("New Patient Button Clicked");
+                root.deleteCurrentPatient();
             }
         }
     }

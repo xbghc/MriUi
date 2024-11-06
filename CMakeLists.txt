@@ -68,10 +68,3 @@ target_link_libraries(MriUi PRIVATE
     Qt::Quick
     DCMTK::DCMTK
 )
-
-# include(GNUInstallDirs)
-# install(TARGETS MriUi
-#     BUNDLE DESTINATION .
-#     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-#     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-# )
