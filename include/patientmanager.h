@@ -11,4 +11,6 @@ public:
     PatientManager(QObject *parent = nullptr);
     Q_INVOKABLE QJsonArray loadPatients();
     Q_INVOKABLE void savePatients(QJsonArray patients);
+
+    Q_INVOKABLE bool exists(QJsonObject patient);
 };

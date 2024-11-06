@@ -24,6 +24,8 @@ qt_add_qml_module(MriUi
     VERSION 1.0
     QML_FILES 
         ui/Main.qml
+        ui/components/MsgBox.qml
+        ui/components/IconButton.qml
         ui/history/HistoryPage.qml
         ui/study/StudyDashboard.qml
         ui/study/StudiesList.qml
@@ -34,7 +36,6 @@ qt_add_qml_module(MriUi
         ui/study/StudySetting.qml
         ui/study/StudiesListView.qml
         ui/study/StudyItem.qml
-        ui/components/IconButton.qml
         ui/patient/PatientSetting.qml
         ui/patient/PatientWindow.qml
     RESOURCES

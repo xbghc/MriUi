@@ -34,3 +34,16 @@ void PatientManager::savePatients(QJsonArray patients)
 
     MriUiConfig::saveJsonArray("./patients/patients.json", patients);
 }
+
+bool PatientManager::exists(QJsonObject patient)
+{
+    QJsonArray patients = loadPatients();
+    for (auto p : patients)
+    {
+        if (p.toObject()["name"] == patient["name"])
+        {
+            return true;
+        }
+    }
+    return false;
+}

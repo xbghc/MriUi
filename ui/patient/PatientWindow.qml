@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import cn.cqu.mri
+
 Window {
     id: root
 
@@ -76,7 +78,13 @@ Window {
             width: 50
 
             onClicked: {
-                root.accept(root.generatePatientInfo());
+                var patientInfo = root.generatePatientInfo();
+                if (PatientManager.exists(patientInfo)) {
+                    msgBox.show();
+                    return;
+                }
+
+                root.accept(patientInfo);
                 root.close();
                 root.clear();
             }
@@ -97,6 +105,14 @@ Window {
                 root.clear();
             }
         }
+    }
+
+    MsgBox {
+        id: msgBox
+
+        msg: qsTr("Parent Name Exists!")
+    
+        visible: false
     }
 
     component EditRect: Rectangle {
