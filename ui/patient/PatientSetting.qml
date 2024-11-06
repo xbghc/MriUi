@@ -30,7 +30,14 @@ Rectangle {
         visible: false
 
         onAccept: function (patientInfo) {
-            root.patients = [...root.patients, patientInfo];
+            if (patientWindow.createNew) {
+                root.patients = [...root.patients, patientInfo];
+            }else{
+                var i = patientComboBox.currentIndex;
+                root.patients[i] = patientInfo;
+                root.patients = [...root.patients]; // 刷新显示
+                patientComboBox.currentIndex = i;
+            }
             PatientManager.savePatients(root.patients);
         }
     }
@@ -79,7 +86,7 @@ Rectangle {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             source: "qrc:/icons/edit_patient"
             onClicked: {
-                root.showPatientWindow();
+                root.showPatientWindow(root.patients[patientComboBox.currentIndex]);
             }
         }
 
