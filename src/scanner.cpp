@@ -77,6 +77,7 @@ namespace
         buf[11] = 1;
 
         _memcpy(buf, 12, size - 16);
+        return buf;
     }
 
     std::shared_ptr<unsigned char[]> encodeTune(QJsonObject study)
@@ -98,6 +99,7 @@ namespace
         buf[11] = 1;
 
         _memcpy(buf, 12, size - 16);
+        return buf;
     }
 
     std::shared_ptr<unsigned char[]> encodeRfopt(QJsonObject study)
@@ -121,6 +123,7 @@ namespace
         _memcpy(buf, 12, size - 16);
         _memcpy(buf, 16, study["observeFrequency"].toDouble());
         _memcpy(buf, 20, study["power"].toDouble());
+        return buf;
     }
 
     std::shared_ptr<unsigned char[]> encodeShim(QJsonObject study)
@@ -143,6 +146,7 @@ namespace
 
         _memcpy(buf, 12, size - 16);
         _memcpy(buf, 16, study["observeFrequency"].toDouble());
+        return buf;
     }
 
     std::shared_ptr<unsigned char[]> encodeT1(QJsonObject study)
@@ -254,6 +258,18 @@ void Scanner::scan(int id, QJsonObject study)
     else if (study["seq"].toString().toLower() == "t2")
     {
         buf = encodeT2(study);
+    }
+    else if (study["seq"].toString().toLower() == "rfopt")
+    {
+        buf = encodeRfopt(study);
+    }
+    else if (study["seq"].toString().toLower() == "tune")
+    {
+        buf = encodeTune(study);
+    }
+    else if (study["seq"].toString().toLower() == "shim")
+    {
+        buf = encodeShim(study);
     }
     else
     {
