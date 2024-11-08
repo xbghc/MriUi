@@ -24,3 +24,21 @@ QJsonArray MriUiConfig::loadStudyConfig()
 
     return loadJsonArray(filePath);
 }
+
+int MriUiConfig::createStudyId()
+{
+    QString path = "./config/id.json";
+    QFile configFile(path);
+    if (!configFile.exists())
+    {
+        QFile::copy(":/config/id.json", path);
+    }
+
+    QJsonObject config = MriUiConfig::loadJsonObject(path);
+    int id = config["nextId"].toInt();
+
+    config["nextId"] = id + 1;
+    MriUiConfig::saveJsonObject(path, config);
+
+    return id;
+}

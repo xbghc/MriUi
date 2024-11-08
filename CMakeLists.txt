@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(MriUi VERSION 0.1 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)  # 20以上才支持数组的正确析构，20以下会导致scanner.cpp中的make_share语句不能正常工作
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_AUTORCC ON)
@@ -45,6 +46,8 @@ qt_add_qml_module(MriUi
         src/studyconfig.cpp
         include/patientmanager.h
         src/patientmanager.cpp
+        include/fakedevice.h
+        src/fakedevice.cpp
 )
 
 target_include_directories(MriUi

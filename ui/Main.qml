@@ -13,13 +13,24 @@ ApplicationWindow {
     visible: true
     title: qsTr("MRI UI")
 
+    property bool isConnected: false
+
     function openTunningWindow(index) {
         tuningWindow.show();
         tuningWindow.currentIndex = index;
     }
 
-    Component.onCompleted:{
-        
+    function connectScanner() {
+        var status = Scanner.open();
+        if (status !== 0) {
+            isConnected = false;
+            msgbox.show();
+        }
+        isConnected = true;
+    }
+
+    Component.onCompleted: {
+        connectScanner();
     }
 
     TuningWindow {
@@ -93,6 +104,18 @@ ApplicationWindow {
                 text: qsTr("preferences")
                 onTriggered: {}
             }
+
+            MenuItem {
+                text: qsTr("Active Noise Cancellation")
+                checkable: true
+            }
+
+            MenuItem {
+                text: qsTr("reconnect to scanner")
+                onTriggered: {
+                    root.connectScanner();
+                }
+            }
         }
 
         Menu {
@@ -119,5 +142,11 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    MsgBox {
+        id: msgbox
+
+        msg: qsTr("scanner is unavailable")
     }
 }

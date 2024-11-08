@@ -8,7 +8,7 @@ Item {
     property var model: null
 
     Component.onCompleted: {
-        var model = MriUiConfig.loadStudyConfig();
+        model = MriUiConfig.loadStudyConfig();
         for (let i = 0; i < model.length; i++) {
             model[i]["index"] = i;
             view.model.append(model[i]);
@@ -17,6 +17,7 @@ Item {
 
     QtObject {
         id: internal
+
         property var settingWindow: null
     }
 
@@ -34,7 +35,13 @@ Item {
         }
 
         onStartItem: function (index) {
-            Scanner.scan(2, "hello");
+            var status = Scanner.isAvaliable();
+            if (!status) {
+                msgbox.show();
+                return;
+            }
+
+            Scanner.scan(MriUiConfig.createStudyId(), root.model[index]);
         }
     }
 
@@ -54,5 +61,11 @@ Item {
             console.error("Error creating StudySetting:", component.errorString());
             return null;
         }
+    }
+
+    MsgBox {
+        id: msgbox
+
+        msg: qsTr("scanner is unavaliable")
     }
 }

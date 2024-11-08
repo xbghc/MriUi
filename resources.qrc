@@ -11,5 +11,7 @@
     </qresource>
     <qresource prefix="/config">
         <file alias="defaultStudies.json">resources/defaultStudies.json</file>
+        <file alias="seqCodeMap.json">resources/seqCodeMap.json</file>
+        <file alias="id.json">resources/id.json</file>
     </qresource>
 </RCC>

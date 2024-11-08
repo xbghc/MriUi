@@ -11,7 +11,7 @@ class MriUiConfig : public QObject
     QML_SINGLETON
 public:
     MriUiConfig(QObject *parent = nullptr);
-    // basic io
+    // basic json io
     Q_INVOKABLE static QJsonObject loadJsonObject(QString filepath);
     Q_INVOKABLE static QJsonArray loadJsonArray(QString filepath);
     Q_INVOKABLE static void saveJsonObject(QString filepath, QJsonObject content);
@@ -19,4 +19,5 @@ public:
 
     // study
     Q_INVOKABLE QJsonArray loadStudyConfig();
+    Q_INVOKABLE int createStudyId();
 };
