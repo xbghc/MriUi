@@ -50,4 +50,5 @@ void MriUiConfig::saveJsonArray(QString filepath, QJsonArray content)
     file.open(QIODevice::WriteOnly);
 
     file.write(doc.toJson());
+    
 }

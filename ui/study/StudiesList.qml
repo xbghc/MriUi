@@ -6,6 +6,7 @@ Item {
     id: root
 
     property var model: null
+    property int runnningIndex: -1
 
     Component.onCompleted: {
         model = MriUiConfig.loadStudyConfig();
@@ -41,6 +42,7 @@ Item {
                 return;
             }
 
+            root.runnningIndex = index;
             Scanner.scan(MriUiConfig.createStudyId(), root.model[index]);
         }
     }
@@ -49,6 +51,7 @@ Item {
         target: Scanner
 
         function onScanned(id, data) {
+            (view.itemAtIndex(root.runnningIndex) as StudyItem).stopTimer();
             console.debug(`Scan completed - ID: ${id}, Data: ${data}`);
         }
     }

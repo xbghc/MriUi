@@ -8,8 +8,9 @@ Item {
     // 用于显示的参数
     required property int index
     required property string name
-    required property string time
+    required property int time
 
+    property int timeSpent: 0
     // mouseArea相关
     signal positionChanged(MouseEvent mouse)
     signal pressed(MouseEvent mouse)
@@ -17,6 +18,27 @@ Item {
     // 按钮
     signal startButtonClicked
     signal setButtonClicked
+
+    function startTimer() {
+        timeSpent = 0;
+        timer.running = true;
+    }
+
+    function stopTimer() {
+        timer.running = false;
+    }
+
+    Component.onCompleted: {
+        updateTimeText();
+    }
+
+    function updateTimeText() {
+        seqtimeText.text = secToText(timeSpent) + '/' + secToText(time);
+    }
+
+    function secToText(sec) {
+        return Math.floor(sec / 60) + ":" + (sec % 60).toString().padStart(2, '0');
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -74,7 +96,7 @@ Item {
             width: 100
             anchors.left: seqnameText.right
             verticalAlignment: Text.AlignVCenter
-            text: root.time
+            text: ''
         }
 
         IconButton {
@@ -87,6 +109,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             source: "qrc:/icons/start"
             onClicked: {
+                root.startTimer();
                 root.startButtonClicked();
             }
         }
@@ -103,6 +126,19 @@ Item {
             onClicked: {
                 root.setButtonClicked();
             }
+        }
+    }
+
+    Timer {
+        id: timer
+
+        interval: 1000
+        running: false
+        repeat: true
+
+        onTriggered: {
+            root.timeSpent += 1;
+            root.updateTimeText();
         }
     }
 }

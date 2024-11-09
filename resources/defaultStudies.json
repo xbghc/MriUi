@@ -2,7 +2,7 @@
   {
     "name": "Scout",
     "seq": "T2",
-    "time": "0:30",
+    "time": 30,
 
     "observeFrequency": 0,
     "noSamples": 128,
@@ -26,7 +26,7 @@
   {
     "name": "T1",
     "seq": "T1",
-    "time": "2:30",
+    "time": 150,
     "observeFrequency": 0,
     "noSamples": 128,
     "noViews": 128,
@@ -45,7 +45,7 @@
   {
     "name": "T2",
     "seq": "T2",
-    "time": "5:30",
+    "time": 330,
 
     "observeFrequency": 0,
     "noSamples": 128,

@@ -32,6 +32,7 @@ int MriUiConfig::createStudyId()
     if (!configFile.exists())
     {
         QFile::copy(":/config/id.json", path);
+        QFile::setPermissions(path, QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ReadUser | QFileDevice::WriteUser);
     }
 
     QJsonObject config = MriUiConfig::loadJsonObject(path);
