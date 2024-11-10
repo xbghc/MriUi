@@ -13,4 +13,5 @@ public:
     Q_INVOKABLE void savePatients(QJsonArray patients);
 
     Q_INVOKABLE bool exists(QJsonObject patient);
+    Q_INVOKABLE int createPatientId();
 };

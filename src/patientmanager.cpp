@@ -40,10 +40,29 @@ bool PatientManager::exists(QJsonObject patient)
     QJsonArray patients = loadPatients();
     for (auto p : patients)
     {
-        if (p.toObject()["name"] == patient["name"])
+        if (p.toObject()["id"] == patient["id"])
         {
             return true;
         }
     }
     return false;
+}
+
+int PatientManager::createPatientId()
+{
+    QString path = "./config/id.json";
+    QFile configFile(path);
+    if (!configFile.exists())
+    {
+        QFile::copy(":/config/id.json", path);
+        QFile::setPermissions(path, QFileDevice::ReadOwner | QFileDevice::WriteOwner | QFileDevice::ReadUser | QFileDevice::WriteUser);
+    }
+
+    QJsonObject config = MriUiConfig::loadJsonObject(path);
+    int id = config["nextPatientId"].toInt();
+
+    config["nextPatientId"] = id + 1;
+    MriUiConfig::saveJsonObject(path, config);
+
+    return id;
 }

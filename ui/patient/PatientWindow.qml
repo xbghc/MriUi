@@ -11,34 +11,31 @@ Window {
     signal accept(var patientInfo)
 
     property bool createNew: false
-    property alias model: repeater.model
-
-    function setPatientInfo(_patientInfo) {
-        repeater.model = [];
-        for (var key in _patientInfo) {
-            repeater.model.push({
-                "label": key,
-                "value": _patientInfo[key]
-            });
-        }
-    }
-
-    function generatePatientInfo() {
-        var info = {};
-        for (var i = 0; i < repeater.model.length; i++) {
-            var label = repeater.itemAt(i).label;
-            var value = repeater.itemAt(i).value;
-            info[label] = value;
-        }
-        return info;
-    }
+    property alias id: idInput.text
+    property alias name: nameInput.text
+    property alias isMale: isMaleRadio.checked
 
     function clear() {
-        setPatientInfo({
-            "name": "Alan",
-            "birthday": "2000-01-01",
-            "gender": "male"
-        });
+        name = "Alan";
+        isMale = true;
+        birthdayPicker.clear();
+    }
+
+    function getInfo() {
+        return {
+            "id": id,
+            "name": name,
+            "isMale": isMale,
+            "birthday": birthdayPicker.date.toLocaleDateString()
+        };
+    }
+
+    function setInfo(patient) {
+        id = patient.id;
+        name = patient.name;
+        isMale = patient.isMale;
+        var birthday = Date.fromLocaleDateString(patient.birthday);
+        birthdayPicker.setDate(birthday);
     }
 
     Component.onCompleted: {
@@ -48,24 +45,157 @@ Window {
     height: 600
     width: 300
     visible: true
+    color: "lightgray"
 
     Rectangle {
         anchors.fill: parent
-        color: "lightgray"
+        color: root.color
 
         ColumnLayout {
-            id: layout
+            id: columnLayout
 
-            Repeater {
-                id: repeater
+            // 保证labelWidth + hInterval + inputWidth = itemWidth
+            property int itemHeight: 40
+            property int itemWidth: 200
+            property int labelWidth: 60
+            property int hInterval: 20
+            property int inputWidth: 120
+            property int itemAlign: Qt.AlignLeft
 
-                model: []
+            width: parent.width
+            anchors.leftMargin: 30
 
-                EditRect {
-                    Layout.preferredHeight: 30
+            Rectangle {
+                id: header
+
+                Layout.fillWidth: true
+                Layout.preferredHeight: 30
+                Layout.bottomMargin: 20
+                color: root.color
+                border.width: 1
+                border.color: "black"
+
+                Text {
+                    anchors.centerIn: parent
+                    text: root.createNew ? qsTr("New Patient") : qsTr("Edit Patient")
                 }
-            }
-        }
+            } // header
+
+            RowLayout {
+                id: idLayout
+
+                Layout.preferredHeight: columnLayout.itemHeight
+                Layout.preferredWidth: columnLayout.itemWidth
+                Layout.alignment: columnLayout.itemAlign
+
+                Text {
+                    Layout.preferredWidth: columnLayout.labelWidth
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.rightMargin: columnLayout.hInterval
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+
+                    text: qsTr("id:")
+                }
+
+                Text {
+                    id: idInput
+
+                    Layout.preferredWidth: columnLayout.inputWidth
+                    Layout.alignment: Qt.AlignVCenter
+                }
+            } // id
+
+            RowLayout {
+                id: nameLayout
+
+                Layout.preferredHeight: columnLayout.itemHeight
+                Layout.preferredWidth: columnLayout.itemWidth
+                Layout.alignment: columnLayout.itemAlign
+
+                Text {
+                    Layout.preferredWidth: columnLayout.labelWidth
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.rightMargin: columnLayout.hInterval
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+
+                    text: qsTr("Name:")
+                }
+
+                TextField {
+                    id: nameInput
+
+                    Layout.preferredWidth: columnLayout.inputWidth
+                    Layout.alignment: Qt.AlignVCenter
+                }
+            } // name
+
+            RowLayout {
+                id: genderLayout
+
+                Layout.preferredHeight: columnLayout.itemHeight
+                Layout.preferredWidth: columnLayout.itemWidth
+                Layout.alignment: columnLayout.itemAlign
+
+                Text {
+                    Layout.preferredWidth: columnLayout.labelWidth
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    Layout.rightMargin: columnLayout.hInterval
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+
+                    text: qsTr("Gender:")
+                }
+
+                RowLayout {
+                    Layout.preferredHeight: columnLayout.itemHeight
+                    Layout.preferredWidth: columnLayout.inputWidth
+                    Layout.alignment: Qt.AlignHCenter
+
+                    RadioButton {
+                        id: isMaleRadio
+
+                        text: qsTr("Male")
+                    }
+
+                    RadioButton {
+
+                        text: qsTr("Female")
+                    }
+                }
+            } // gender
+
+            RowLayout {
+                id: birthdayLayout
+
+                Layout.preferredHeight: columnLayout.itemHeight
+                Layout.preferredWidth: columnLayout.itemWidth
+                Layout.alignment: columnLayout.itemAlign
+
+                Text {
+                    Layout.preferredHeight: columnLayout.itemHeight
+                    Layout.preferredWidth: columnLayout.labelWidth
+                    Layout.rightMargin: columnLayout.hInterval
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignRight
+
+                    text: qsTr("birthday:")
+                }
+
+                DatePicker {
+                    id: birthdayPicker
+
+                    Layout.preferredHeight: columnLayout.itemHeight
+                    Layout.preferredWidth: columnLayout.inputWidth
+                    Layout.alignment: Qt.AlignHCenter
+                    radius: 4
+                    color: root.color
+                }
+            } // birthday
+
+        } // columnLayout
 
         Button {
             id: acceptButton
@@ -79,7 +209,7 @@ Window {
             width: 50
 
             onClicked: {
-                var patientInfo = root.generatePatientInfo();
+                var patientInfo = root.getInfo();
                 if (root.createNew && PatientManager.exists(patientInfo)) {
                     msgBox.show();
                     return;
@@ -90,6 +220,7 @@ Window {
                 root.clear();
             }
         }
+
         Button {
             id: rejectButton
 
@@ -112,51 +243,7 @@ Window {
         id: msgBox
 
         msg: qsTr("Parent Name Exists!")
-    
+
         visible: false
-    }
-
-    component EditRect: Rectangle {
-        id: editRect
-
-        required property var modelData
-        property alias label: _label.text
-        property alias value: _textEdit.text
-        property int fontSize: 15
-
-        color: "lightgray"
-
-        RowLayout {
-            anchors.fill: parent
-
-            Text {
-                id: _label
-
-                text: editRect.modelData.label
-
-                Layout.fillHeight: true
-                Layout.preferredWidth: 100
-                Layout.leftMargin: 20
-                font.pixelSize: editRect.fontSize
-            }
-
-            Rectangle {
-                id: textEditContainer
-
-                Layout.fillHeight: true
-                Layout.preferredWidth: 100
-                border.width: 1
-
-                TextEdit {
-                    id: _textEdit
-
-                    text: editRect.modelData.value
-
-                    anchors.fill: parent
-                    font.pixelSize: editRect.fontSize
-                }
-            }
-        } // layout
-
     }
 }

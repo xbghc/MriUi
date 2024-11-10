@@ -24,6 +24,7 @@ qt_add_qml_module(MriUi
         ui/Main.qml
         ui/components/MsgBox.qml
         ui/components/IconButton.qml
+        ui/components/DatePicker.qml
         ui/history/HistoryPage.qml
         ui/study/StudyDashboard.qml
         ui/study/StudiesList.qml

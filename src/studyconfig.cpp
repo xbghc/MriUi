@@ -36,9 +36,9 @@ int MriUiConfig::createStudyId()
     }
 
     QJsonObject config = MriUiConfig::loadJsonObject(path);
-    int id = config["nextId"].toInt();
+    int id = config["nextScanId"].toInt();
 
-    config["nextId"] = id + 1;
+    config["nextScanId"] = id + 1;
     MriUiConfig::saveJsonObject(path, config);
 
     return id;

@@ -1,3 +1,4 @@
 {
-  "nextId": 0
+  "nextPatientId": 0,
+  "nextScanId": 0
 }

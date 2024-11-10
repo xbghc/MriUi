@@ -10,7 +10,6 @@ Rectangle {
     property var patients: null
 
     Component.onCompleted: {
-        // showPatientWindow();
         patients = PatientManager.loadPatients();
     }
 
@@ -18,9 +17,10 @@ Rectangle {
         patientWindow.show();
         if (patientInfo == null) {
             patientWindow.createNew = true;
+            patientWindow.id = PatientManager.createPatientId();
         } else {
             patientWindow.createNew = false;
-            patientWindow.setPatientInfo(patientInfo);
+            patientWindow.setInfo(patientInfo);
         }
     }
 
@@ -36,9 +36,9 @@ Rectangle {
         visible: false
     }
 
-    Connections{
+    Connections {
         target: patientWindow
-        
+
         function onAccept(patientInfo) {
             if (patientWindow.createNew) {
                 root.patients = [...root.patients, patientInfo];
